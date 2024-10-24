@@ -5,6 +5,7 @@ import { useAccount, useContract, useContractWrite, useWaitForTransaction } from
 import { ABI } from "../abis/abi";
 import { contractAddress } from "../lib/data";
 import { CallData } from "starknet";
+import { HashLoader } from "react-spinners";
 
 export default function EditControl({ student }) {
   const editStudentPopover = useRef(null);
