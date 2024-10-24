@@ -100,9 +100,9 @@ pub mod StudentRegistry {
             while i < students_count + 1 {
                 let current_student_data = self.students_map.entry(i).read();
                 // return only active students
-                if current_student_data.is_active {
-                    all_students.append(current_student_data)
-                };
+                // if current_student_data.is_active {
+                all_students.append(current_student_data);
+                // };
 
                 i += 1;
             };

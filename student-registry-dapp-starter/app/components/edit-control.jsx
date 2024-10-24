@@ -1,9 +1,15 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import EditIcon from "../svg/EditIcon";
 import CloseIcon from "../svg/CloseIcon";
+import { useAccount, useContract, useContractWrite, useWaitForTransaction } from "@starknet-react/core";
+import { ABI } from "../abis/abi";
+import { contractAddress } from "../lib/data";
+import { CallData } from "starknet";
 
 export default function EditControl({ student }) {
   const editStudentPopover = useRef(null);
+
+  const {address: user} = useAccount()
 
   // Form State Values
   const [surname, setSurname] = useState("");
@@ -14,36 +20,71 @@ export default function EditControl({ student }) {
   // Submit Event Handler
   const handleSubmit = async (event) => {
     event.preventDefault();
+    writeAsync()
   };
 
   // TODO: Implement edit student functionality
+  // Initializing contract
+  const { contract } = useContract({
+    abi: ABI,
+    address: contractAddress
+  })
+  // get student index
+  const index = parseInt(student.id)
+  // const user = true
+  // contract calls
+  const calls = useMemo(() => {
+    const isInputvalid = user && contract && firstName.length > 0 && surname.length > 0 && age.length > 0
+
+    if (!isInputvalid) return
+
+    return contract.populateTransaction["update_student"](
+      CallData.compile([index, firstName, surname, phoneNumber, age])
+    );
+  }, [contract, user, index, firstName, surname, phoneNumber, age])
+
+  const {
+    writeAsync,
+    data: editData,
+    isPending: editWriteIsPending,
+  } = useContractWrite({
+    calls
+  })
+
+  const {
+    data: editWaitData,
+    isLoading: editWaitIsLoading,
+  } = useWaitForTransaction({
+    hash: editData?.transaction_hash,
+    watch: true,
+  })
 
   // Loading State
-  // const LoadingState = ({ message }) => (
-  //   <div className="flex items-center space-x-2">
-  //     <HashLoader size={16} color="#ffffff" />
-  //     <span>{message}</span>
-  //   </div>
-  // );
-  // const buttonContent = () => {
-  //   if (writeIsPending) {
-  //     return <LoadingState message="Sending" />;
-  //   }
+  const LoadingState = ({ message }) => (
+    <div className="flex items-center space-x-2">
+      <HashLoader size={16} color="#ffffff" />
+      <span>{message}</span>
+    </div>
+  );
+  const buttonContent = () => {
+    if (editWriteIsPending) {
+      return <LoadingState message="Sending" />;
+    }
 
-  //   if (waitIsLoading) {
-  //     return <LoadingState message="Waiting for confirmation" />;
-  //   }
+    if (editWaitIsLoading) {
+      return <LoadingState message="Waiting for confirmation" />;
+    }
 
-  //   if (waitData && waitData.status === "REJECTED") {
-  //     return <LoadingState message="Transaction rejected" />;
-  //   }
+    if (editWaitData && editWaitData.status === "REJECTED") {
+      return <LoadingState message="Transaction rejected" />;
+    }
 
-  //   if (waitData) {
-  //     return "Transaction confirmed";
-  //   }
+    if (editWaitData) {
+      return "Transaction confirmed";
+    }
 
-  //   return "Edit Student";
-  // };
+    return "Edit Student";
+  };
 
   return (
     <>
@@ -125,8 +166,8 @@ export default function EditControl({ student }) {
             disabled={!surname || !firstName || !age || !phoneNumber}
             onClick={handleSubmit}
           >
-            {/* {buttonContent()} */}
-            Edit Student
+            {buttonContent()}
+            {/* Edit Student */}
           </button>
         </form>
       </dialog>

@@ -1,191 +1,191 @@
 // TODO: Get ABI from Voyager
 export const ABI = [
   {
-    type: "impl",
-    name: "StudentRegistryImpl",
-    interface_name: "contracts::student_registry::IStudentRegistry",
+    "type": "impl",
+    "name": "StudentRegistryImpl",
+    "interface_name": "contracts::student_registry::IStudentRegistry"
   },
   {
-    type: "enum",
-    name: "core::bool",
-    variants: [
+    "type": "enum",
+    "name": "core::bool",
+    "variants": [
       {
-        name: "False",
-        type: "()",
+        "name": "False",
+        "type": "()"
       },
       {
-        name: "True",
-        type: "()",
-      },
-    ],
+        "name": "True",
+        "type": "()"
+      }
+    ]
   },
   {
-    type: "struct",
-    name: "contracts::student_struct::Student",
-    members: [
+    "type": "struct",
+    "name": "contracts::student_struct::Student",
+    "members": [
       {
-        name: "id",
-        type: "core::integer::u64",
+        "name": "id",
+        "type": "core::integer::u64"
       },
       {
-        name: "fname",
-        type: "core::felt252",
+        "name": "fname",
+        "type": "core::felt252"
       },
       {
-        name: "lname",
-        type: "core::felt252",
+        "name": "lname",
+        "type": "core::felt252"
       },
       {
-        name: "phone_number",
-        type: "core::felt252",
+        "name": "phone_number",
+        "type": "core::felt252"
       },
       {
-        name: "age",
-        type: "core::integer::u8",
+        "name": "age",
+        "type": "core::integer::u8"
       },
       {
-        name: "is_active",
-        type: "core::bool",
-      },
-    ],
+        "name": "is_active",
+        "type": "core::bool"
+      }
+    ]
   },
   {
-    type: "struct",
-    name: "core::array::Span::<contracts::student_struct::Student>",
-    members: [
+    "type": "struct",
+    "name": "core::array::Span::<contracts::student_struct::Student>",
+    "members": [
       {
-        name: "snapshot",
-        type: "@core::array::Array::<contracts::student_struct::Student>",
-      },
-    ],
+        "name": "snapshot",
+        "type": "@core::array::Array::<contracts::student_struct::Student>"
+      }
+    ]
   },
   {
-    type: "interface",
-    name: "contracts::student_registry::IStudentRegistry",
-    items: [
+    "type": "interface",
+    "name": "contracts::student_registry::IStudentRegistry",
+    "items": [
       {
-        type: "function",
-        name: "add_student",
-        inputs: [
+        "type": "function",
+        "name": "add_student",
+        "inputs": [
           {
-            name: "_fname",
-            type: "core::felt252",
+            "name": "_fname",
+            "type": "core::felt252"
           },
           {
-            name: "_lname",
-            type: "core::felt252",
+            "name": "_lname",
+            "type": "core::felt252"
           },
           {
-            name: "_phone_number",
-            type: "core::felt252",
+            "name": "_phone_number",
+            "type": "core::felt252"
           },
           {
-            name: "_age",
-            type: "core::integer::u8",
+            "name": "_age",
+            "type": "core::integer::u8"
           },
           {
-            name: "_is_active",
-            type: "core::bool",
-          },
+            "name": "_is_active",
+            "type": "core::bool"
+          }
         ],
-        outputs: [
+        "outputs": [
           {
-            type: "core::bool",
-          },
+            "type": "core::bool"
+          }
         ],
-        state_mutability: "external",
+        "state_mutability": "external"
       },
       {
-        type: "function",
-        name: "get_student",
-        inputs: [
+        "type": "function",
+        "name": "get_student",
+        "inputs": [
           {
-            name: "index",
-            type: "core::integer::u64",
-          },
+            "name": "index",
+            "type": "core::integer::u64"
+          }
         ],
-        outputs: [
+        "outputs": [
           {
-            type: "(core::felt252, core::felt252, core::felt252, core::integer::u8, core::bool)",
-          },
+            "type": "(core::felt252, core::felt252, core::felt252, core::integer::u8, core::bool)"
+          }
         ],
-        state_mutability: "view",
+        "state_mutability": "view"
       },
       {
-        type: "function",
-        name: "get_all_students",
-        inputs: [],
-        outputs: [
+        "type": "function",
+        "name": "get_all_students",
+        "inputs": [],
+        "outputs": [
           {
-            type: "core::array::Span::<contracts::student_struct::Student>",
-          },
+            "type": "core::array::Span::<contracts::student_struct::Student>"
+          }
         ],
-        state_mutability: "view",
+        "state_mutability": "view"
       },
       {
-        type: "function",
-        name: "update_student",
-        inputs: [
+        "type": "function",
+        "name": "update_student",
+        "inputs": [
           {
-            name: "_index",
-            type: "core::integer::u64",
+            "name": "_index",
+            "type": "core::integer::u64"
           },
           {
-            name: "_fname",
-            type: "core::felt252",
+            "name": "_fname",
+            "type": "core::felt252"
           },
           {
-            name: "_lname",
-            type: "core::felt252",
+            "name": "_lname",
+            "type": "core::felt252"
           },
           {
-            name: "_phone_number",
-            type: "core::felt252",
+            "name": "_phone_number",
+            "type": "core::felt252"
           },
           {
-            name: "_age",
-            type: "core::integer::u8",
-          },
+            "name": "_age",
+            "type": "core::integer::u8"
+          }
         ],
-        outputs: [
+        "outputs": [
           {
-            type: "core::bool",
-          },
+            "type": "core::bool"
+          }
         ],
-        state_mutability: "external",
+        "state_mutability": "external"
       },
       {
-        type: "function",
-        name: "delete_student",
-        inputs: [
+        "type": "function",
+        "name": "delete_student",
+        "inputs": [
           {
-            name: "_index",
-            type: "core::integer::u64",
-          },
+            "name": "_index",
+            "type": "core::integer::u64"
+          }
         ],
-        outputs: [
+        "outputs": [
           {
-            type: "core::bool",
-          },
+            "type": "core::bool"
+          }
         ],
-        state_mutability: "external",
-      },
-    ],
+        "state_mutability": "external"
+      }
+    ]
   },
   {
-    type: "constructor",
-    name: "constructor",
-    inputs: [
+    "type": "constructor",
+    "name": "constructor",
+    "inputs": [
       {
-        name: "_admin",
-        type: "core::starknet::contract_address::ContractAddress",
-      },
-    ],
+        "name": "_admin",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
   },
   {
-    type: "event",
-    name: "contracts::student_registry::StudentRegistry::Event",
-    kind: "enum",
-    variants: [],
-  },
+    "type": "event",
+    "name": "contracts::student_registry::StudentRegistry::Event",
+    "kind": "enum",
+    "variants": []
+  }
 ];

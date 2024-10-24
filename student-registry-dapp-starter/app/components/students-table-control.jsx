@@ -13,7 +13,7 @@ import { contractAddress } from "../lib/data";
 import { CallData } from "starknet";
 import { HashLoader } from "react-spinners";
 
-export default function StudentsTableControl({ count, handleRefreshStudents }) {
+export default function StudentsTableControl({ count, handleRefreshStudents, handleFilterChange }) {
   const { address: user } = useAccount();
   // Form State Values
   const addStudentPopover = useRef(null);
@@ -26,7 +26,7 @@ export default function StudentsTableControl({ count, handleRefreshStudents }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    writeAsync();
+    await writeAsync();
   };
 
   //TODO: Contract Initialization
@@ -94,8 +94,8 @@ export default function StudentsTableControl({ count, handleRefreshStudents }) {
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-x-4 text-sm">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex items-center gap-x-4 text-sm flex-wrap">
           <button
             className="flex items-center gap-x-2 px-3 py-3 rounded-md bg-[#5B9EF7] text-white"
             onClick={handleRefreshStudents}
@@ -110,6 +110,20 @@ export default function StudentsTableControl({ count, handleRefreshStudents }) {
           >
             Add New Student
           </button>
+          <div className="flex items-center gap-x-3 px-3 py-3 rounded-md border-[1px] border-[#F2F2F2] border-solid text-black">
+            <label htmlFor="filter">Filter By</label>
+            <select 
+              name="status" 
+              id="filterOption" 
+              defaultValue={''} 
+              onChange={handleFilterChange} 
+              className="rounded-md border-[1px] border-[#F2F2F2] border-solid text-black"
+            >
+              <option value="">None</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
         </div>
         <Pagination count={count} />
       </div>
